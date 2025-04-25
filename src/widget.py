@@ -9,11 +9,11 @@ def mask_account_card(bank_info: str) -> str:
 
     match len(account_param[-1]):
         case 16:
-            masked_account = " ".join(account_param[:-1]) + " " + get_mask_card_number(number)
+            account_param[-1] = get_mask_card_number(number)
         case _:
-            masked_account = " ".join(account_param[:-1]) + " " + get_mask_account(number)
+            account_param[-1] = get_mask_account(number)
 
-    return masked_account
+    return " ".join(account_param)
 
 
 def get_date(user_date: str) -> str:
@@ -26,4 +26,5 @@ def get_date(user_date: str) -> str:
 
 if __name__ == "__main__":
     print(mask_account_card("Счет 35383033474447895560"))
+    print(mask_account_card("Visa Platinum 8990922113665229"))
     print(get_date("2024-03-11T02:26:18.671407"))
