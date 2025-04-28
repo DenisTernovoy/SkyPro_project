@@ -22,11 +22,6 @@ def test_get_mask_card_number_invalid_number(number: Union[int, str]) -> None:
     assert str(e.value) == "Номер банковской карты должен состоять из 16-ти цифровых символов"
 
 
-@pytest.fixture
-def number_account() -> str:
-    return "**4305"
-
-
 @pytest.mark.parametrize("number", [73654108430135874305, "73654108430135874305"])
 def test_get_mask_account(number: Union[int, str], number_account: str) -> None:
     assert get_mask_account(number) == number_account

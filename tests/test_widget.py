@@ -3,16 +3,6 @@ import pytest
 from src.widget import get_date, mask_account_card
 
 
-@pytest.fixture
-def account() -> str:
-    return "Счет **5560"
-
-
-@pytest.fixture
-def card() -> str:
-    return "Visa Platinum 8990 92** **** 5229"
-
-
 @pytest.mark.parametrize("number", ["Счет 35383033474447895560", "Счет 11112222333344445560"])
 def test_mask_account_card_account(number: str, account: str) -> None:
     assert mask_account_card(number) == account
@@ -35,11 +25,6 @@ def test_mask_account_card_invalid_type() -> None:
         mask_account_card("МИР 4226922113665229")
 
     assert str(e.value) == "Некорректный тип карты или счета"
-
-
-@pytest.fixture
-def date() -> str:
-    return "11.03.2024"
 
 
 def test_get_date(date: str) -> None:
