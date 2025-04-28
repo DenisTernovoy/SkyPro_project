@@ -1,30 +1,42 @@
+import datetime as dt
+import re
+
 from src.masks import get_mask_account, get_mask_card_number
 
 
 def mask_account_card(bank_info: str) -> str:
     """Функция для маскировки номера"""
 
-    account_param = bank_info.split()
-    number = int(account_param[-1])
+    if bank_info:
+        account_param = bank_info.split()
+        number = account_param[-1]
 
-    match len(account_param[-1]):
-        case 16:
-            account_param[-1] = get_mask_card_number(number)
-        case _:
-            account_param[-1] = get_mask_account(number)
+        if len(account_param) >= 2:
+            if account_param[0] == "Счет":
+                account_param[-1] = get_mask_account(number)
+            elif account_param[0] in ("Maestro", "MasterCard", "Visa"):
+                account_param[-1] = get_mask_card_number(number)
+            else:
+                raise ValueError("Некорректный тип карты или счета")
+            return " ".join(account_param)
 
-    return " ".join(account_param)
+    raise ValueError("Укажите тип и номер карты или счета")
 
 
 def get_date(user_date: str) -> str:
     """Функция для форматирования даты"""
 
-    formatted_date = user_date.split("-")
+    if user_date:
+        res = re.match(r"(\d{4})-(\d{2})-(\d{2})T", user_date[:11])
 
-    return f"{formatted_date[2][:2]}.{formatted_date[1]}.{formatted_date[0]}"
+        if res:
+            try:
+                dt.datetime.strptime(f"{res.group(3)}.{res.group(2)}.{res.group(1)}", "%d.%m.%Y")
+            except Exception:
+                raise ValueError("Введен некорректный формат даты")
 
+            return f"{res.group(3)}.{res.group(2)}.{res.group(1)}"
+        else:
+            raise ValueError("Введен некорректный формат даты")
 
-if __name__ == "__main__":
-    print(mask_account_card("Счет 35383033474447895560"))
-    print(mask_account_card("Visa Platinum 8990922113665229"))
-    print(get_date("2024-03-11T02:26:18.671407"))
+    raise ValueError("Отсутствует дата для форматирования")
