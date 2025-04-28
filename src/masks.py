@@ -1,20 +1,26 @@
 import textwrap
+from typing import Union
 
 
-def get_mask_card_number(card_number: int) -> str:
+def get_mask_card_number(card_number: Union[int, str]) -> str:
     """Функция маскировки номера банковской карты"""
 
-    masked_number = str(card_number)[:6] + "*" * 6 + str(card_number)[-4:]
-    return " ".join(textwrap.wrap(masked_number, 4))
+    if isinstance(card_number, int):
+        card_number = str(card_number)
+
+    if len(card_number) == 16 and card_number.isdigit():
+        return " ".join(textwrap.wrap(f"{card_number[:6]}******{card_number[-4:]}", 4))
+    else:
+        raise ValueError("Номер банковской карты должен состоять из 16-ти цифровых символов")
 
 
-def get_mask_account(account_number: int) -> str:
+def get_mask_account(account_number: Union[int, str]) -> str:
     """Функцию маскировки номера банковского счета"""
 
-    masked_account_number = "**" + str(account_number)[-4:]
-    return masked_account_number
+    if isinstance(account_number, int):
+        account_number = str(account_number)
 
-
-if __name__ == "__main__":
-    print(get_mask_card_number(7000792289606361))
-    print(get_mask_account(73654108430135874305))
+    if len(account_number) == 20 and account_number.isdigit():
+        return f"**{str(account_number)[-4:]}"
+    else:
+        raise ValueError("Номер банковского счета должен состоять из 20-ти цифровых символов")
