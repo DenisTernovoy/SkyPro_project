@@ -3,11 +3,10 @@ from typing import Any, Callable
 
 def log(filename: str = "") -> Callable:
     def wrapper(function: Callable) -> Callable:
-        def inner(*args: Any, **kwargs: Any) -> None:
+        def inner(*args: Any, **kwargs: Any) -> Any:
             name = function.__name__
             try:
-                response = function(*args, **kwargs)
-                result = f"{name} {response}"
+                result = f"{name} {function(*args, **kwargs)}"
             except Exception as e:
                 result = f"{name} error: {e}. Inputs: {args}, {kwargs}"
             if filename:
@@ -15,6 +14,7 @@ def log(filename: str = "") -> Callable:
                     file.write(result)
             else:
                 print(result)
+            return function(*args, **kwargs)
 
         return inner
 
