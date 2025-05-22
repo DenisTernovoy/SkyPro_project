@@ -19,15 +19,14 @@ def get_transaction_amount(transaction: dict) -> float:
     except KeyError:
         raise ValueError("Некорректный формат транзакции")
 
-    if currency == "USD" or currency == "EUR":
-
-        url = "https://api.apilayer.com/exchangerates_data/convert"
-
-        headers = {"apikey": API_KEY}
-        params = {"from": transaction["operationAmount"]["currency"]["code"], "to": "RUB", "amount": amount}
-
-        response = requests.get(url, headers=headers, params=params)
-
-        return float(response.json()["result"])
-    else:
+    if currency == "RUB":
         return float(transaction["operationAmount"]["amount"])
+
+    url = "https://api.apilayer.com/exchangerates_data/convert"
+
+    headers = {"apikey": API_KEY}
+    params = {"from": currency, "to": "RUB", "amount": amount}
+
+    response = requests.get(url, headers=headers, params=params)
+
+    return float(response.json()["result"])

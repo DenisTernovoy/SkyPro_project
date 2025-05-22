@@ -4,11 +4,13 @@ from unittest.mock import mock_open, patch
 
 from src.utils import get_transactions_info
 
-if os.getcwd() == "C:\\Users\\denis\\Desktop\\BankWidget\\tests":
-    file_path = "../data/operations.json"
-else:
-    file_path = "./data/operations.json"
+from pathlib import Path
 
+#  Путь до корневой директории
+BASE_DIR = Path(__file__).resolve().parent.parent
+OPERATIONS_PATH = BASE_DIR.joinpath('data', 'operations.json')
+
+file_path = str(OPERATIONS_PATH).replace('\\', '/')
 
 def test_get_transactions_info_1() -> None:
     mock_data = [{"key": "value"}, {"key": "value"}]
