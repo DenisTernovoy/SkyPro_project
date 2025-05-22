@@ -10,7 +10,7 @@ API_KEY = os.getenv("API_KEY")
 def get_transaction_amount(transaction: dict) -> float:
     """Функция принимает на вход транзакцию и возвращает сумму транзакции рублях"""
 
-    if not isinstance(transaction, dict):
+    if not isinstance(transaction, dict) or transaction == {}:
         raise ValueError("Некорректный формат транзакции")
 
     try:
@@ -19,7 +19,7 @@ def get_transaction_amount(transaction: dict) -> float:
     except KeyError:
         raise ValueError("Некорректный формат транзакции")
 
-    if currency != "RUB":
+    if currency == "USD" or currency == "EUR":
 
         url = "https://api.apilayer.com/exchangerates_data/convert"
 

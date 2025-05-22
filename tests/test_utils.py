@@ -1,16 +1,13 @@
-import json
 import os
-from unittest.mock import patch, MagicMock, mock_open
-
-import pytest
+from typing import Any
+from unittest.mock import mock_open, patch
 
 from src.utils import get_transactions_info
 
-
-if os.getcwd() == 'C:\\Users\\denis\\Desktop\\BankWidget\\tests':
-    file_path = '../data/operations.json'
+if os.getcwd() == "C:\\Users\\denis\\Desktop\\BankWidget\\tests":
+    file_path = "../data/operations.json"
 else:
-    file_path = './data/operations.json'
+    file_path = "./data/operations.json"
 
 
 def test_get_transactions_info_1() -> None:
@@ -31,9 +28,9 @@ def test_get_transactions_info_2() -> None:
     assert result == []
 
 
-@patch('os.path.isfile', return_value=True)
-@patch('builtins.open', new_callable=mock_open, read_data="{'key': 'value')")
-def test_get_transactions_info_3(mock_open, mock_isfile):
+@patch("os.path.isfile", return_value=True)
+@patch("builtins.open", new_callable=mock_open, read_data="{'key': 'value')")
+def test_get_transactions_info_3(mock_open: Any, mock_isfile: Any) -> None:
     file = "test_file.json"
     result = get_transactions_info(file)
     assert result == []
