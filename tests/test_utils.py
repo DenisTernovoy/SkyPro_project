@@ -1,4 +1,3 @@
-import os
 from typing import Any
 from unittest.mock import mock_open, patch
 
@@ -10,7 +9,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 OPERATIONS_PATH = BASE_DIR.joinpath('data', 'operations.json')
 
-file_path = str(OPERATIONS_PATH).replace('\\', '/')
+file_path = str(OPERATIONS_PATH)
 
 def test_get_transactions_info_1() -> None:
     mock_data = [{"key": "value"}, {"key": "value"}]
