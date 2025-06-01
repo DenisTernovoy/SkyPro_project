@@ -30,7 +30,7 @@ def test_log_3(capsys: Any) -> None:
     my_func(2, 0)
 
     captured = capsys.readouterr()
-    assert captured.out == "my_func error: division by zero. Inputs: (2, 0), {{}}\n"
+    assert captured.out == "my_func error: division by zero. Inputs: (2, 0), {}\n"
 
 
 def test_log_4() -> None:
