@@ -17,7 +17,7 @@ def log(filename: str = "") -> Callable:
                     file.write(result)
             else:
                 print(result)
-            return function(*args, **kwargs)
+            return result
 
         return inner
 
