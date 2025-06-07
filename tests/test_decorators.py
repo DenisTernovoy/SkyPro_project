@@ -1,7 +1,5 @@
 from typing import Any
 
-import pytest
-
 from src.decorators import log
 
 
@@ -29,11 +27,10 @@ def test_log_3(capsys: Any) -> None:
     def my_func(x: int, y: int) -> float:
         return x / y
 
-    with pytest.raises(ZeroDivisionError) as e:
-        my_func(2, 0)
+    my_func(2, 0)
 
     captured = capsys.readouterr()
-    assert captured.out == f"my_func error: {str(e.value)}. Inputs: (2, 0), {{}}\n"
+    assert captured.out == "my_func error: division by zero. Inputs: (2, 0), {}\n"
 
 
 def test_log_4() -> None:

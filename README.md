@@ -269,6 +269,40 @@ print(get_transaction_amount(transaction))
 2523.44
 ```
 
+* Функция `read_csv_file` принимает на вход путь до файла в формате .csv и возвращает список транзакций в формате dict.
+
+Пример:
+```
+print(read_csv_file(file_path))
+```
+
+Результат работы функции:
+```
+[[{'id': 650703.0, 'state': 'EXECUTED', 'date': '2023-09-05T11:30:32Z', 'amount': 16210.0, 'currency_name': 'Sol',
+      'currency_code': 'PEN', 'from': 'Счет 58803664561298323391', 'to': 'Счет 39745660563456619397',
+      'description': 'Перевод организации'},
+     {'id': 3598919.0, 'state': 'EXECUTED', 'date': '2020-12-06T23:00:58Z', 'amount': 29740.0, 'currency_name': 'Peso',
+      'currency_code': 'COP', 'from': 'Discover 3172601889670065', 'to': 'Discover 0720428384694643',
+      'description': 'Перевод с карты на карту'}]]
+```
+
+* Функция `read_excel_file` принимает на вход путь до файла в формате .csv и возвращает список транзакций в формате dict.
+
+Пример:
+```
+print(read_excel_file(file_path))
+```
+
+Результат работы функции:
+```
+[{'id': 650703.0, 'state': 'EXECUTED', 'date': '2023-09-05T11:30:32Z', 'amount': 16210.0, 'currency_name': 'Sol',
+  'currency_code': 'PEN', 'from': 'Счет 58803664561298323391', 'to': 'Счет 39745660563456619397',
+  'description': 'Перевод организации'},
+ {'id': 3598919.0, 'state': 'EXECUTED', 'date': '2020-12-06T23:00:58Z', 'amount': 29740.0, 'currency_name': 'Peso',
+  'currency_code': 'COP', 'from': 'Discover 3172601889670065', 'to': 'Discover 0720428384694643',
+  'description': 'Перевод с карты на карту'}]
+```
+
 ## Тестирование
 
 Для тестирования функций используется фреймворк `pytest`.
