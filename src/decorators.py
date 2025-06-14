@@ -27,11 +27,3 @@ def log(filename: str = "") -> Callable:
         return inner
 
     return wrapper
-
-
-@log()
-def my_func(x: int, y: int) -> float:
-    return x / y
-
-
-print(my_func(2, 0))
