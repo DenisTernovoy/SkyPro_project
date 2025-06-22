@@ -14,10 +14,8 @@ def mask_account_card(bank_info: str) -> str:
         if len(account_param) >= 2:
             if account_param[0] == "Счет":
                 account_param[-1] = get_mask_account(number)
-            elif account_param[0] in ("Maestro", "MasterCard", "Visa"):
-                account_param[-1] = get_mask_card_number(number)
             else:
-                raise ValueError("Некорректный тип карты или счета")
+                account_param[-1] = get_mask_card_number(number)
             return " ".join(account_param)
 
     raise ValueError("Укажите тип и номер карты или счета")

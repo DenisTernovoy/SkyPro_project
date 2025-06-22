@@ -20,11 +20,11 @@ def test_mask_account_card_invalid(bank_info: str) -> None:
     assert str(e.value) == "Укажите тип и номер карты или счета"
 
 
-def test_mask_account_card_invalid_type() -> None:
-    with pytest.raises(ValueError) as e:
-        mask_account_card("МИР 4226922113665229")
-
-    assert str(e.value) == "Некорректный тип карты или счета"
+# def test_mask_account_card_invalid_type() -> None:
+#     with pytest.raises(ValueError) as e:
+#         mask_account_card("МИР 4226922113665229")
+#
+#     assert str(e.value) == "Некорректный тип карты или счета"
 
 
 def test_get_date(date: str) -> None:
