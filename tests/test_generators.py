@@ -97,3 +97,19 @@ def test_card_number_generator(range_number: tuple[int, int]) -> None:
         "0000 0000 0000 1009",
         "0000 0000 0000 1010",
     ]
+
+
+def test_another_type_currency_code() -> None:
+    transaction = {
+        "id": 4699552.0,
+        "state": "EXECUTED",
+        "date": "2022-03-23T08:29:37Z",
+        "amount": 23423.0,
+        "currency_name": "Peso",
+        "currency_code": "PHP",
+        "from": "Discover 7269000803370165",
+        "to": "American Express 1963030970727681",
+        "description": "Перевод с карты на карту",
+    }
+
+    assert list(filter_by_currency([transaction], "PHP"))[0] == transaction

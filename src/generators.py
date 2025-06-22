@@ -5,10 +5,16 @@ from typing import Any, Generator
 def filter_by_currency(list_dicts: list[dict], currency: str) -> Any:
     """Функция возвращает итератор, который поочередно выдает транзакции,
     где валюта операции соответствует заданной (например, USD)."""
-
+    iter_object = []
     try:
-        iter_object = list(filter(lambda x: x["operationAmount"]["currency"]["name"] == currency, list_dicts))
-    except (TypeError, KeyError):
+        for i in list_dicts:
+            if "operationAmount" in i:
+                if i["operationAmount"]["currency"]["code"] == currency:
+                    iter_object.append(i)
+            else:
+                if i["currency_code"] == currency:
+                    iter_object.append(i)
+    except Exception:
         iter_object = []
 
     return iter(iter_object)
